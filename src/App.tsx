@@ -5,11 +5,11 @@ import InputName from './components/InputName'
 import JokeDetails from './components/JokeDetails'
 import SaveJokes from './components/SaveJokes'
 import SelectCategory from './components/SelectCategory'
-import useCustomHooks from './hooks'
+import useCustomHooks from './customHooks'
 import chuckNorrisPhoto from './userPhotos/chuck-norris.png'
 import randomPhoto from './userPhotos/random-photo.png'
 
-import { Container, Select, Form } from './styles'
+import { Container, Form } from './styles'
 
 const App: FC = () => {
   const {
@@ -25,6 +25,7 @@ const App: FC = () => {
     handleSaveButton,
     handleDecrementButton,
     handleIncrementButton,
+    handleInputSaveOnchange,
   } = useCustomHooks()
 
   const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
@@ -57,6 +58,7 @@ const App: FC = () => {
       <SaveJokes
         value={joke.joke}
         numValue={numberOfJokes}
+        saveOnChange={handleInputSaveOnchange}
         onClick={handleSaveButton}
         decrement={handleDecrementButton}
         increment={handleIncrementButton}

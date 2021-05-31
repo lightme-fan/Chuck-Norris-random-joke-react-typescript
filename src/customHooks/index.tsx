@@ -1,11 +1,5 @@
-import React, { useState, useEffect, MouseEvent, createContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
-interface JokeType {
-  categories: string[] | undefined
-  id: number
-  joke: string
-}
 
 const useCustomHooks = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -20,11 +14,11 @@ const useCustomHooks = () => {
   const [isInputValid, setIsInputValid] = useState<boolean>(false)
   const [newMultipleJokes, setnewMultipleJokes] = useState<any>(null)
   const [numberOfJokes, setNumberOfJokes] = useState<number>(0)
+  const [shouldBeDisable, setshouldBeDisable] = useState<boolean>(false)
 
   // API
-  const DEFAULT_ENDPOINT = 'http://api.icndb.com/jokes/random'
   const CATEGORY_API = 'http://api.icndb.com/categories'
-  const MAIN_CHARACTER_API = `http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
+  const RANDOM_JOKE_URL = `http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
   const SPECIFIC_CATEGORY_API = `http://api.icndb.com/jokes/random?limitTo=[${category}]`
   const MULTIPLE_JOKE_API = `http://api.icndb.com/jokes/random/${numberOfJokes}`
 
@@ -83,16 +77,31 @@ const useCustomHooks = () => {
     setLastName(buttonValue.length === 1 ? '' : convertedValueToArray[1])
 
     // Fetch API
-    const newJoke = await fetchJokes(MAIN_CHARACTER_API)
+    const newJoke = await fetchJokes(RANDOM_JOKE_URL)
     setJokes(newJoke.value)
   }
 
   const handleDecrementButton = () => {
     setNumberOfJokes(numberOfJokes - 1)
+    if (numberOfJokes === 0) {
+      setshouldBeDisable(true)
+    }
   }
 
   const handleIncrementButton = () => {
     setNumberOfJokes(numberOfJokes + 1)
+    if (numberOfJokes === 0) {
+      setshouldBeDisable(true)
+    }
+  }
+
+  const handleInputSaveOnchange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newNumber = event.target.value
+    console.log(newNumber)
+
+    // setNumberOfJokes(Number(newNumber))
   }
 
   // Handle save button
@@ -112,9 +121,10 @@ const useCustomHooks = () => {
 
   useEffect(() => {
     async function randomJokes(): Promise<any> {
-      const newJoke = await fetchJokes(MAIN_CHARACTER_API)
+      const newJoke = await fetchJokes(RANDOM_JOKE_URL)
       setJokes(newJoke.value)
     }
+
     async function jokeCategory(): Promise<any> {
       const newCat = await fetchJokes(CATEGORY_API)
       setAllCategories(newCat.value)
@@ -122,6 +132,7 @@ const useCustomHooks = () => {
 
     async function saveMultipleJokes(): Promise<any> {
       if (numberOfJokes > 0 || numberOfJokes <= 100) {
+        setshouldBeDisable(true)
         const multipleJokes = await fetchJokes(MULTIPLE_JOKE_API)
         setnewMultipleJokes(multipleJokes.value)
       }
@@ -131,9 +142,8 @@ const useCustomHooks = () => {
     saveMultipleJokes()
   }, [numberOfJokes])
 
-  console.log(savedJokes)
-
   return {
+    shouldBeDisable,
     isItChuckNorrisJoke,
     joke,
     numberOfJokes,
@@ -149,6 +159,7 @@ const useCustomHooks = () => {
     handleSaveButton,
     handleDecrementButton,
     handleIncrementButton,
+    handleInputSaveOnchange,
   }
 }
 

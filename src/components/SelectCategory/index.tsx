@@ -1,16 +1,15 @@
-import React, { Children, FC, useState } from 'react'
+import React, { Children, useState } from 'react'
 
 type SelectType = {
   item: any
   onClick: (event: React.ChangeEvent<HTMLButtonElement>) => void
 }
 
-type ItemType = {
-  children: any
-  onClick: (event: React.ChangeEvent<HTMLButtonElement>) => void
+interface Props {
+  children: JSX.Element[] | JSX.Element
 }
 
-const SelectContainer = ({ children }: any) => {
+const SelectContainer = ({ children }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [head, ...tail] = Children.toArray(children)
   return (

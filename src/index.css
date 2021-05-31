@@ -21,7 +21,6 @@ button {
 .menu {
   margin: 54px 0 16px;
   position: relative;
-  /* width: 99%; */
   height: 58px;
   z-index: 1;
   border: 2px solid #c4c4c4;
@@ -57,7 +56,6 @@ button {
   border: none;
   background-color: #fff;
   color: #34394f;
-  /* border-color: #34394f; */
 }
 
 .cat-span {
@@ -73,7 +71,6 @@ button {
   color: #34394f;
   border: none;
   border-radius: 6px;
-  /* margin: 8px; */
   width: 96%;
   margin-left: 8px;
   margin-right: 8px;
@@ -95,4 +92,8 @@ button {
 .open:hover {
   border-bottom-right-radius: none;
   border-bottom-left-radius: none;
+}
+
+.disabled {
+  background-color: #f39a9a;
 }

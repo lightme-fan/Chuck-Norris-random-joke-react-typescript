@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { Input, PlaceholderElement } from '../../styles'
-import useCustomHooks from '../../hooks'
 
 type InputType = {
   value: string
