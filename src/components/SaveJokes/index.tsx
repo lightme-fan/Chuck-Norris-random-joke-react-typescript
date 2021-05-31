@@ -20,7 +20,6 @@ const SaveJokes = ({
   numValue,
 }: OnClickType) => {
   const { numberOfJokes, isButonClicked } = useCustomHooks()
-  console.log(isButonClicked)
 
   return (
     <SaveJoke>

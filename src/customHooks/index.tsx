@@ -11,6 +11,7 @@ const useCustomHooks = () => {
   const [savedJokes, setSaveJokes] = useState<string[]>([])
   const [isInputValid, setIsInputValid] = useState<boolean>(false)
   const [newMultipleJokes, setnewMultipleJokes] = useState<any>(null)
+  const [number, setNumber] = useState<any>(0)
   const [numberOfJokes, setNumberOfJokes] = useState<number>(0)
   const [isButonClicked, setIsButonClicked] = useState<boolean>(false)
 
@@ -80,11 +81,11 @@ const useCustomHooks = () => {
 
   const handleDecrementButton = () => {
     setIsButonClicked(true)
-    setNumberOfJokes(numberOfJokes - 1)
+    setNumber((num: number) => (num > 0 ? number - 1 : 0))
   }
 
   const handleIncrementButton = () => {
-    setNumberOfJokes(numberOfJokes + 1)
+    setNumber((prev: number) => prev + 1)
     setIsButonClicked(true)
   }
 
@@ -92,9 +93,6 @@ const useCustomHooks = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newNumber = event.target.value
-    console.log(newNumber)
-
-    // setNumberOfJokes(Number(newNumber))
   }
 
   // Handle save button
@@ -103,8 +101,6 @@ const useCustomHooks = () => {
     const mapMultipleJokes = newMultipleJokes.map(
       (item: any, index: number) => item.joke
     )
-    console.log(mapMultipleJokes)
-
     savedJokes.every((joke) => joke !== newJoke) &&
       setSaveJokes((joke: string[]) => {
         return [...joke, newJoke]
@@ -125,6 +121,7 @@ const useCustomHooks = () => {
 
     async function saveMultipleJokes(): Promise<any> {
       if (numberOfJokes > 0 || numberOfJokes <= 100) {
+        setNumberOfJokes(number)
         const multipleJokes = await fetchJokes(MULTIPLE_JOKE_API)
         setnewMultipleJokes(multipleJokes.value)
       }
@@ -137,6 +134,7 @@ const useCustomHooks = () => {
 
   return {
     joke,
+    number,
     numberOfJokes,
     allCategories,
     isButonClicked,

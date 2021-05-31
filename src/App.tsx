@@ -14,6 +14,7 @@ import { Container, Form } from './styles'
 const App: FC = () => {
   const {
     joke,
+    number,
     numberOfJokes,
     allCategories,
     firstName,
@@ -56,7 +57,7 @@ const App: FC = () => {
       </Form>
       <SaveJokes
         value={joke.joke}
-        numValue={numberOfJokes}
+        numValue={number}
         saveOnChange={handleInputSaveOnchange}
         onClick={handleSaveButton}
         decrement={handleDecrementButton}

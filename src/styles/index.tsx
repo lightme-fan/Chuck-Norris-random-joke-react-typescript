@@ -138,7 +138,7 @@ export const NumberOfJokes = styled.div`
   div {
     display: flex;
     justify-content: space-between;
-    gap: 16px;
+    gap: 5px;
     width: 90px;
     padding-left: 16px;
 
