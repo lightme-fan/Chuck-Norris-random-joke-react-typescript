@@ -1,10 +1,16 @@
 import React from 'react'
-type JokeContent = { imageSource: string; jokeText: string }
+import { Image } from '../../styles'
 
-const JokeDetails = ({ imageSource, jokeText }: JokeContent): JSX.Element => {
+type JokeContent = { imageSource: any; jokeText: string; alt: string }
+
+const JokeDetails = ({
+  imageSource,
+  jokeText,
+  alt,
+}: JokeContent): JSX.Element => {
   return (
     <div>
-      <img src={imageSource} />
+      <Image src={imageSource} alt={alt} />
       <p>{jokeText}</p>
     </div>
   )

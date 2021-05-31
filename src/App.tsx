@@ -1,24 +1,58 @@
-import React from 'react'
-// import logo from './logo.svg'
+import React, { FC } from 'react'
 import './App.css'
 import DrawJokeButton from './components/DrawJokeButton'
 import InputName from './components/InputName'
 import JokeDetails from './components/JokeDetails'
 import SaveJokes from './components/SaveJokes'
 import SelectCategory from './components/SelectCategory'
+import useCustomHooks from './hooks'
+import chuckNorrisPhoto from './userPhotos/chuck-norris.png'
 
-const App = (): JSX.Element => {
+import { Container, Select, Form } from './styles'
+
+const App: FC = () => {
+  const [
+    joke,
+    jokeText,
+    allCategories,
+    firstName,
+    lastName,
+    inputValue,
+    selectOnChange,
+    handleInputChange,
+    handleSubmitDrawJoke,
+    handleSaveButton,
+  ] = useCustomHooks()
+
+  // console.log('Jokes', joke)
+  // console.log('Category', allCategories)
+
   return (
-    <div className='App'>
+    <Container>
       <JokeDetails
-        imageSource='data:image/jpeg;base64,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'
-        jokeText='Lorem LoremLoremLoremLoremLoremLorem'
+        imageSource={chuckNorrisPhoto}
+        jokeText={'joke.value.joke'}
+        alt={firstName}
       />
-      <SelectCategory />
-      <InputName />
-      <DrawJokeButton />
-      <SaveJokes />
-    </div>
+      {/* <SelectCategory onChange={selectOnChange} item={allCategories} /> */}
+      <Select name='' id=''>
+        <option>Cat1</option>
+        <option>Cat2</option>
+      </Select>
+      <Form onSubmit={handleSubmitDrawJoke}>
+        <InputName
+          value={inputValue}
+          name={'inputValue'}
+          onChange={handleInputChange}
+        />
+        <DrawJokeButton
+          joker={
+            inputValue === '' ? 'Chuck Norris' : `${firstName} ${lastName}`
+          }
+        />
+      </Form>
+      <SaveJokes value={'joke.value.joke'} onClick={handleSaveButton} />
+    </Container>
   )
 }
 

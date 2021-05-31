@@ -1,13 +1,25 @@
-const SaveJokes = (): JSX.Element => {
+import React from 'react'
+import { SaveJoke, NumberOfJokes, Savebutton, IconButton } from '../../styles'
+
+type OnClickType = {
+  value: string
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+}
+
+const SaveJokes = ({ onClick, value }: OnClickType) => {
   return (
-    <section>
-      <div>
-        <button>-</button>
-        <span>0</span>
-        <button>+</button>
-      </div>
-      <button>Save Jokes</button>
-    </section>
+    <SaveJoke>
+      <NumberOfJokes>
+        <div>
+          <IconButton>-</IconButton>
+          <span>0</span>
+          <IconButton>+</IconButton>
+        </div>
+      </NumberOfJokes>
+      <Savebutton value={value} onClick={onClick}>
+        Save Jokes
+      </Savebutton>
+    </SaveJoke>
   )
 }
 export default SaveJokes

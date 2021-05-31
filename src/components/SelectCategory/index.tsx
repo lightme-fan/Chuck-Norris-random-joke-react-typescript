@@ -1,10 +1,20 @@
-import React from 'react'
+type OnChange = {
+  item: any
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
+}
 
-const SelectCategory = (): JSX.Element => {
+const SelectCategory = ({ onChange, item }: OnChange) => {
   return (
-    <select>
+    <select onChange={onChange}>
       <option value=''>Category</option>
-      <option value='dog'>Dog</option>
+      {item.map((cat: string, index: string) => {
+        const category = cat === '' ? 'Category' : cat
+        return (
+          <option key={cat.length} value={cat}>
+            {category}
+          </option>
+        )
+      })}
     </select>
   )
 }

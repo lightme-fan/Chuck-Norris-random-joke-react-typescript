@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Input placeholder text */
+
+input::-webkit-input-placeholder {
+  color: #c4c4c4;
+}
+
+input::-moz-placeholder {
+  color: #c4c4c4;
+}
+
+input::-ms-placeholder {
+  color: #c4c4c4;
+}
+
+input::placeholder {
+  color: #c4c4c4;
+}
+
+button {
+  cursor: pointer;
+}
