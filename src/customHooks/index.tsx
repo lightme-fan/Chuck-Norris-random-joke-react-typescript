@@ -15,10 +15,10 @@ const useCustomHooks = () => {
   const [isButonClicked, setIsButonClicked] = useState<boolean>(false)
 
   // API
-  const CATEGORY_API = 'http://api.icndb.com/categories'
-  const RANDOM_JOKE_URL = `http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
-  const SPECIFIC_CATEGORY_API = `http://api.icndb.com/jokes/random?limitTo=[${category}]`
-  const MULTIPLE_JOKE_API = `http://api.icndb.com/jokes/random/${numberOfJokes}`
+  const CATEGORY_API = 'https://api.icndb.com/categories'
+  const RANDOM_JOKE_URL = `https://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
+  const SPECIFIC_CATEGORY_API = `https://api.icndb.com/jokes/random?limitTo=[${category}]`
+  const MULTIPLE_JOKE_API = `https://api.icndb.com/jokes/random/${numberOfJokes}`
 
   // Fetch API
   const fetchJokes = async (url: string): Promise<any> => {
@@ -132,6 +132,7 @@ const useCustomHooks = () => {
     randomJokes()
     jokeCategory()
     saveMultipleJokes()
+    //e slint-disable-next-line react-hooks/exhaustive-deps
   }, [numberOfJokes])
 
   return {
