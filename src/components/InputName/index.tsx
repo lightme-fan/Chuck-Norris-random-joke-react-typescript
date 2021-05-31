@@ -17,9 +17,7 @@ const InputName = ({
   return (
     <Fragment>
       <Input value={value} name={name} onChange={onChange} />
-      <PlaceholderElement>
-        {doesInputHaveValue === false ? 'Impersonate Chuck Norris' : ''}
-      </PlaceholderElement>
+      <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
     </Fragment>
   )
 }

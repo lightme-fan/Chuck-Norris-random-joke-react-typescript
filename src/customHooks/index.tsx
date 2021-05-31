@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const useCustomHooks = () => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [isItChuckNorrisJoke, setIsItChuckNorrisJoke] = useState<boolean>(true)
   const [joke, setJokes] = useState<any>({})
   const [allCategories, setAllCategories] = useState<string[]>([])
   const [firstName, setFirstName] = useState<string>('Chuck')
@@ -29,7 +27,6 @@ const useCustomHooks = () => {
       return response.data
     } catch (err) {
       console.log(err)
-      setLoading(true)
     }
   }
 
@@ -138,7 +135,6 @@ const useCustomHooks = () => {
   }, [numberOfJokes])
 
   return {
-    isItChuckNorrisJoke,
     joke,
     numberOfJokes,
     allCategories,
