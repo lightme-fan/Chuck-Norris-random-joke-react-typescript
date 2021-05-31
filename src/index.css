@@ -97,3 +97,8 @@ button {
 .disabled {
   background-color: #f39a9a;
 }
+
+.save-on-click {
+  background-color: #34394f;
+  color: white;
+}

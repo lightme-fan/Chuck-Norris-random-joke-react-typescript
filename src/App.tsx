@@ -40,7 +40,6 @@ const App: FC = () => {
         jokeText={joke.joke}
         alt={firstName}
       />
-      {/* onChange={selectOnChange} item={allCategories} */}
       <SelectCategory item={allCategories} onClick={handleSelect} />
       <Form onSubmit={handleSubmitDrawJoke}>
         <InputName

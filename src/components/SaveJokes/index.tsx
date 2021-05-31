@@ -19,7 +19,8 @@ const SaveJokes = ({
   value,
   numValue,
 }: OnClickType) => {
-  const { numberOfJokes } = useCustomHooks()
+  const { numberOfJokes, isButonClicked } = useCustomHooks()
+  console.log(isButonClicked)
 
   return (
     <SaveJoke>
@@ -35,7 +36,10 @@ const SaveJokes = ({
           <IconButton onClick={increment}>+</IconButton>
         </div>
       </NumberOfJokes>
-      <Savebutton value={value} onClick={onClick}>
+      <Savebutton
+        value={value}
+        onClick={onClick}
+        className={isButonClicked ? 'save-on-click' : ''}>
         Save Jokes
       </Savebutton>
       {numberOfJokes > 100 || numberOfJokes < 0 ? (

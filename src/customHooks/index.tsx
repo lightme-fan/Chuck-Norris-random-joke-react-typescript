@@ -14,7 +14,7 @@ const useCustomHooks = () => {
   const [isInputValid, setIsInputValid] = useState<boolean>(false)
   const [newMultipleJokes, setnewMultipleJokes] = useState<any>(null)
   const [numberOfJokes, setNumberOfJokes] = useState<number>(0)
-  const [shouldBeDisable, setshouldBeDisable] = useState<boolean>(false)
+  const [isButonClicked, setIsButonClicked] = useState<boolean>(false)
 
   // API
   const CATEGORY_API = 'http://api.icndb.com/categories'
@@ -82,17 +82,13 @@ const useCustomHooks = () => {
   }
 
   const handleDecrementButton = () => {
+    setIsButonClicked(true)
     setNumberOfJokes(numberOfJokes - 1)
-    if (numberOfJokes === 0) {
-      setshouldBeDisable(true)
-    }
   }
 
   const handleIncrementButton = () => {
     setNumberOfJokes(numberOfJokes + 1)
-    if (numberOfJokes === 0) {
-      setshouldBeDisable(true)
-    }
+    setIsButonClicked(true)
   }
 
   const handleInputSaveOnchange = (
@@ -132,7 +128,6 @@ const useCustomHooks = () => {
 
     async function saveMultipleJokes(): Promise<any> {
       if (numberOfJokes > 0 || numberOfJokes <= 100) {
-        setshouldBeDisable(true)
         const multipleJokes = await fetchJokes(MULTIPLE_JOKE_API)
         setnewMultipleJokes(multipleJokes.value)
       }
@@ -143,11 +138,11 @@ const useCustomHooks = () => {
   }, [numberOfJokes])
 
   return {
-    shouldBeDisable,
     isItChuckNorrisJoke,
     joke,
     numberOfJokes,
     allCategories,
+    isButonClicked,
     firstName,
     lastName,
     isInputValid,
