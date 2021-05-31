@@ -5,14 +5,22 @@ import useCustomHooks from '../../hooks'
 type InputType = {
   value: string
   name: string
+  doesInputHaveValue: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputName = ({ value, name, onChange }: InputType) => {
+const InputName = ({
+  value,
+  name,
+  doesInputHaveValue,
+  onChange,
+}: InputType) => {
   return (
     <Fragment>
       <Input value={value} name={name} onChange={onChange} />
-      <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
+      <PlaceholderElement>
+        {doesInputHaveValue === false ? 'Impersonate Chuck Norris' : ''}
+      </PlaceholderElement>
     </Fragment>
   )
 }

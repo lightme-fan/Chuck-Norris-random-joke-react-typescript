@@ -2,62 +2,36 @@ import React, { useState, useEffect, MouseEvent, createContext } from 'react'
 import axios from 'axios'
 
 interface JokeType {
-  categories?: string[] | undefined
+  categories: string[] | undefined
   id: number
   joke: string
 }
 
-// type StateType = {
-//   loading: boolean
-//   joke: JokeType
-//   allCategories: string[]
-//   setAllCategories: string
-//   firstName: string
-//   lastName: string
-//   inputValue: string
-//   category: string
-//   savedJokes: string
-//   isInputValid: string
-// }
-
-// const initialState: StateType = {
-//   loading: false,
-//   joke: {},
-//   allCategories: [],
-//   setAllCategories: '',
-//   firstName: '',
-//   lastName: '',
-//   inputValue: '',
-//   category: '',
-//   savedJokes: '',
-//   isInputValid: '',
-// }
-
-// const Context = createContext(initialState)
-
 const useCustomHooks = () => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [joke, setJokes] = useState<Partial<JokeType>>({})
+  const [isItChuckNorrisJoke, setIsItChuckNorrisJoke] = useState<boolean>(true)
+  const [joke, setJokes] = useState<any>({})
   const [allCategories, setAllCategories] = useState<string[]>([])
-  const [firstName, setFirstName] = useState<string>('')
-  const [lastName, setLastName] = useState<string>('')
+  const [firstName, setFirstName] = useState<string>('Chuck')
+  const [lastName, setLastName] = useState<string>('Norris')
   const [inputValue, setInputValue] = useState<string>('')
   const [category, setCategory] = useState<string>('')
   const [savedJokes, setSaveJokes] = useState<string[]>([])
   const [isInputValid, setIsInputValid] = useState<boolean>(false)
+  const [newMultipleJokes, setnewMultipleJokes] = useState<any>(null)
+  const [numberOfJokes, setNumberOfJokes] = useState<number>(0)
 
   // API
   const DEFAULT_ENDPOINT = 'http://api.icndb.com/jokes/random'
   const CATEGORY_API = 'http://api.icndb.com/categories'
   const MAIN_CHARACTER_API = `http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
   const SPECIFIC_CATEGORY_API = `http://api.icndb.com/jokes/random?limitTo=[${category}]`
-  const MULTIPLE_JOKE_API = `http://api.icndb.com/jokes/random/3`
+  const MULTIPLE_JOKE_API = `http://api.icndb.com/jokes/random/${numberOfJokes}`
 
   // Fetch API
   const fetchJokes = async (url: string): Promise<any> => {
     try {
       const response = await axios.get(url)
-      console.log(response.data)
       return response.data
     } catch (err) {
       console.log(err)
@@ -65,38 +39,14 @@ const useCustomHooks = () => {
     }
   }
 
-  useEffect(() => {
-    async function randomJokes(): Promise<any> {
-      const newJoke = await fetchJokes(MAIN_CHARACTER_API)
-      setJokes(newJoke.value)
-    }
-    async function jokeCategory(): Promise<any> {
-      const newCat = await fetchJokes(CATEGORY_API)
-      setAllCategories(newCat.value)
-    }
-
-    randomJokes()
-    jokeCategory()
-  }, [])
-
   // Handle select change
-  const selectOnChange = async (
-    event: React.ChangeEvent<HTMLSelectElement>
+  const handleSelect = async (
+    event: React.ChangeEvent<HTMLButtonElement>
   ): Promise<any> => {
     const catValue = event.target.value
-    const categories = joke?.categories
-
-    console.log(allCategories)
-    console.log(categories?.includes(catValue))
-
-    if (categories === undefined) {
-      const newJoke = await fetchJokes(DEFAULT_ENDPOINT)
-      setJokes(newJoke)
-    } else {
-      setCategory(catValue)
-      const newJoke = await fetchJokes(SPECIFIC_CATEGORY_API)
-      setJokes(newJoke)
-    }
+    setCategory(catValue)
+    const newJoke = await fetchJokes(`${SPECIFIC_CATEGORY_API}`)
+    setJokes(newJoke.value)
   }
 
   // Handle input change
@@ -105,6 +55,10 @@ const useCustomHooks = () => {
     const input = event.target
     const newValue = input.value
     setInputValue(newValue)
+
+    if (inputValue !== '') {
+      setIsInputValid(true)
+    }
   }
 
   // Handle submit
@@ -126,43 +80,70 @@ const useCustomHooks = () => {
 
     // Set Name
     setFirstName(convertedValueToArray[0])
-    setLastName(
-      convertedValueToArray.length === 1 ? '' : convertedValueToArray[1]
-    )
+    setLastName(buttonValue.length === 1 ? '' : convertedValueToArray[1])
 
     // Fetch API
     const newJoke = await fetchJokes(MAIN_CHARACTER_API)
-    setJokes(newJoke)
+    setJokes(newJoke.value)
   }
 
   const handleDecrementButton = () => {
-    console.log('Decrement')
+    setNumberOfJokes(numberOfJokes - 1)
   }
 
   const handleIncrementButton = () => {
-    console.log('Increment')
+    setNumberOfJokes(numberOfJokes + 1)
   }
 
   // Handle save button
   const handleSaveButton = (event: React.ChangeEvent<HTMLButtonElement>) => {
     const newJoke = event.target.value
+    const mapMultipleJokes = newMultipleJokes.map(
+      (item: any, index: number) => item.joke
+    )
+    console.log(mapMultipleJokes)
+
     savedJokes.every((joke) => joke !== newJoke) &&
       setSaveJokes((joke: string[]) => {
         return [...joke, newJoke]
       })
-
-    console.log(savedJokes)
+    return savedJokes.concat(mapMultipleJokes)
   }
 
+  useEffect(() => {
+    async function randomJokes(): Promise<any> {
+      const newJoke = await fetchJokes(MAIN_CHARACTER_API)
+      setJokes(newJoke.value)
+    }
+    async function jokeCategory(): Promise<any> {
+      const newCat = await fetchJokes(CATEGORY_API)
+      setAllCategories(newCat.value)
+    }
+
+    async function saveMultipleJokes(): Promise<any> {
+      if (numberOfJokes > 0 || numberOfJokes <= 100) {
+        const multipleJokes = await fetchJokes(MULTIPLE_JOKE_API)
+        setnewMultipleJokes(multipleJokes.value)
+      }
+    }
+    randomJokes()
+    jokeCategory()
+    saveMultipleJokes()
+  }, [numberOfJokes])
+
+  console.log(savedJokes)
+
   return {
+    isItChuckNorrisJoke,
     joke,
+    numberOfJokes,
     allCategories,
     firstName,
     lastName,
     isInputValid,
     inputValue,
     category,
-    selectOnChange,
+    handleSelect,
     handleInputChange,
     handleSubmitDrawJoke,
     handleSaveButton,

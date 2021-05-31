@@ -1,22 +1,49 @@
-import { Select } from '../../styles'
+import React, { Children, FC, useState } from 'react'
 
-type OnChange = {
+type SelectType = {
   item: any
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
+  onClick: (event: React.ChangeEvent<HTMLButtonElement>) => void
 }
 
-const SelectCategory = ({ onChange, item }: OnChange) => {
+type ItemType = {
+  children: any
+  onClick: (event: React.ChangeEvent<HTMLButtonElement>) => void
+}
+
+const SelectContainer = ({ children }: any) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [head, ...tail] = Children.toArray(children)
   return (
-    <Select onChange={onChange}>
-      <option value=''>Select a category</option>
-      {item.map((cat: string, index: string) => {
+    <div
+      className={isOpen ? 'onpe-men' : 'menu'}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}>
+      {head}
+      {isOpen && <div className='open'>{tail}</div>}
+    </div>
+  )
+}
+
+const Item = ({ children, value, onClick }: any) => {
+  return (
+    <button className='item' value={value} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
+
+const SelectCategory = ({ item, onClick }: SelectType) => {
+  return (
+    <SelectContainer>
+      <span className='cat-span'>Select a category</span>
+      {item.map((cat: string) => {
         return (
-          <option key={cat.length} value={cat}>
+          <Item onClick={onClick} key={cat} value={cat}>
             {cat}
-          </option>
+          </Item>
         )
       })}
-    </Select>
+    </SelectContainer>
   )
 }
 

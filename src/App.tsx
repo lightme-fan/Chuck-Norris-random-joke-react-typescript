@@ -14,11 +14,12 @@ import { Container, Select, Form } from './styles'
 const App: FC = () => {
   const {
     joke,
+    numberOfJokes,
     allCategories,
     firstName,
     lastName,
     inputValue,
-    selectOnChange,
+    handleSelect,
     handleInputChange,
     handleSubmitDrawJoke,
     handleSaveButton,
@@ -38,11 +39,13 @@ const App: FC = () => {
         jokeText={joke.joke}
         alt={firstName}
       />
-      <SelectCategory onChange={selectOnChange} item={allCategories} />
+      {/* onChange={selectOnChange} item={allCategories} */}
+      <SelectCategory item={allCategories} onClick={handleSelect} />
       <Form onSubmit={handleSubmitDrawJoke}>
         <InputName
           value={inputValue}
           name='input'
+          doesInputHaveValue={inputValue !== '' ? true : false}
           onChange={handleInputChange}
         />
         <DrawJokeButton
@@ -53,7 +56,7 @@ const App: FC = () => {
       </Form>
       <SaveJokes
         value={joke.joke}
-        numValue={0}
+        numValue={numberOfJokes}
         onClick={handleSaveButton}
         decrement={handleDecrementButton}
         increment={handleIncrementButton}
