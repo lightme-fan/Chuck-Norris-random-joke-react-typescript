@@ -2,27 +2,13 @@ import { Fragment } from 'react'
 import { Input, PlaceholderElement } from '../../styles'
 import useCustomHooks from '../../hooks'
 
-type InutType = {
+type InputType = {
   value: string
   name: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputName = ({ value, name, onChange }: InutType) => {
-  const [
-    joke,
-    allCategories,
-    firstName,
-    lastName,
-    isInputValid,
-    inputValue,
-    category,
-    selectOnChange,
-    handleInputChange,
-    handleSubmitDrawJoke,
-    handleSaveButton,
-  ] = useCustomHooks()
-
+const InputName = ({ value, name, onChange }: InputType) => {
   return (
     <Fragment>
       <Input value={value} name={name} onChange={onChange} />

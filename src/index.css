@@ -12,28 +12,6 @@ code {
     monospace;
 }
 
-/* Input placeholder text */
-
-input:focus {
-  padding-top: 28px;
-  height: 30px;
-}
-
-input:focus ~ span {
-  top: 5px;
-  font-size: 12px;
-}
-
-/* input:valid {
-  padding-top: 28px;
-  height: 30px;
-}
-
-input:valid ~ span {
-  top: 5px;
-  font-size: 12px;
-} */
-
 /* Button */
 button {
   cursor: pointer;

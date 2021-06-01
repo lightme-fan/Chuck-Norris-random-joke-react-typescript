@@ -1,7 +1,11 @@
 import React from 'react'
 import { Image, Joke } from '../../styles'
 
-type JokeContent = { imageSource: any; jokeText: string; alt: string }
+type JokeContent = {
+  imageSource: any
+  jokeText: string | undefined
+  alt: string
+}
 
 const JokeDetails = ({
   imageSource,

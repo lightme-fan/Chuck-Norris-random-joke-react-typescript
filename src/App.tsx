@@ -12,24 +12,21 @@ import randomPhoto from './userPhotos/random-photo.png'
 import { Container, Select, Form } from './styles'
 
 const App: FC = () => {
-  const [
+  const {
     joke,
     allCategories,
     firstName,
     lastName,
-    isInputValid,
     inputValue,
-    category,
     selectOnChange,
     handleInputChange,
     handleSubmitDrawJoke,
     handleSaveButton,
-  ] = useCustomHooks()
+    handleDecrementButton,
+    handleIncrementButton,
+  } = useCustomHooks()
 
   const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
-
-  const lengthOfInputValue = inputValue.split(' ').length
-
   return (
     <Container>
       <JokeDetails
@@ -38,19 +35,29 @@ const App: FC = () => {
             ? chuckNorrisPhoto
             : randomPhoto
         }
-        jokeText={joke.value.joke}
+        jokeText={joke.joke}
         alt={firstName}
       />
       <SelectCategory onChange={selectOnChange} item={allCategories} />
       <Form onSubmit={handleSubmitDrawJoke}>
         <InputName
           value={inputValue}
-          name='name'
+          name='input'
           onChange={handleInputChange}
         />
-        <DrawJokeButton joker={jokerName} />
+        <DrawJokeButton
+          joker={jokerName}
+          id='drawJokeButton'
+          value={jokerName}
+        />
       </Form>
-      <SaveJokes value={joke.value.joke} onClick={handleSaveButton} />
+      <SaveJokes
+        value={joke.joke}
+        numValue={0}
+        onClick={handleSaveButton}
+        decrement={handleDecrementButton}
+        increment={handleIncrementButton}
+      />
     </Container>
   )
 }

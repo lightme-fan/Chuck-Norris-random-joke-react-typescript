@@ -8,12 +8,11 @@ type OnChange = {
 const SelectCategory = ({ onChange, item }: OnChange) => {
   return (
     <Select onChange={onChange}>
-      <option value=''>Category</option>
+      <option value=''>Select a category</option>
       {item.map((cat: string, index: string) => {
-        const category = cat === '' ? 'Category' : cat
         return (
           <option key={cat.length} value={cat}>
-            {category}
+            {cat}
           </option>
         )
       })}

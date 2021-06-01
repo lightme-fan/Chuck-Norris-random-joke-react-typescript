@@ -8,6 +8,7 @@ export const Container = styled.div`
   background-color: #fff;
   border-radius: 8px;
 `
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -18,6 +19,7 @@ export const Form = styled.form`
 export const Image = styled.img`
   width: 100%;
 `
+
 export const Joke = styled.p`
   font-size: 18px;
   font-weight: 600;
@@ -44,6 +46,12 @@ export const Select = styled.select`
   font-size: 16px;
   color: #c4c4c4;
   margin: 32px 0 16px;
+
+  option {
+    border: none;
+    font-size: 16px;
+    padding: 16px;
+  }
 `
 
 export const Input = styled.input`
@@ -59,6 +67,16 @@ export const Input = styled.input`
   border: solid 2px #c4c4c4;
   background-color: #fff;
   border-radius: 7px;
+
+  &:focus {
+    padding-top: 28px;
+    height: 30px;
+  }
+
+  &:focus ~ span {
+    top: 5px;
+    font-size: 12px;
+  }
 `
 
 export const PlaceholderElement = styled.span`
@@ -102,7 +120,14 @@ export const Savebutton = styled.button`
   border-color: #f5f6f8;
   border-radius: 6px;
   border: none;
+
+  &:focus,
+  &:hover {
+    background-color: #34394f;
+    color: #fff;
+  }
 `
+
 export const NumberOfJokes = styled.div`
   background-color: #f5f6f8;
   border-color: #f5f6f8;
@@ -113,6 +138,22 @@ export const NumberOfJokes = styled.div`
   div {
     display: flex;
     justify-content: space-between;
+    gap: 16px;
+    width: 90px;
+    padding-left: 16px;
+
+    input {
+      border: none;
+      background-color: #f5f6f8;
+      width: 100%;
+      font-size: 16px;
+
+      &:focus,
+      &:valid {
+        border: none;
+        border-color: #f5f6f8;
+      }
+    }
   }
 `
 
