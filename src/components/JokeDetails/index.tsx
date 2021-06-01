@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image } from '../../styles'
+import { Image, Joke } from '../../styles'
 
 type JokeContent = { imageSource: any; jokeText: string; alt: string }
 
@@ -11,7 +11,7 @@ const JokeDetails = ({
   return (
     <div>
       <Image src={imageSource} alt={alt} />
-      <p>{jokeText}</p>
+      <Joke>"{jokeText}"</Joke>
     </div>
   )
 }

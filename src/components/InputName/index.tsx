@@ -1,4 +1,6 @@
-import { Input } from '../../styles'
+import { Fragment } from 'react'
+import { Input, PlaceholderElement } from '../../styles'
+import useCustomHooks from '../../hooks'
 
 type InutType = {
   value: string
@@ -7,13 +9,25 @@ type InutType = {
 }
 
 const InputName = ({ value, name, onChange }: InutType) => {
+  const [
+    joke,
+    allCategories,
+    firstName,
+    lastName,
+    isInputValid,
+    inputValue,
+    category,
+    selectOnChange,
+    handleInputChange,
+    handleSubmitDrawJoke,
+    handleSaveButton,
+  ] = useCustomHooks()
+
   return (
-    <Input
-      placeholder={`Impersonate Chuck Norris`}
-      value={value}
-      name={name}
-      onChange={onChange}
-    />
+    <Fragment>
+      <Input value={value} name={name} onChange={onChange} />
+      <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
+    </Fragment>
   )
 }
 

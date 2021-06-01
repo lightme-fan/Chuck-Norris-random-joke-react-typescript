@@ -1,3 +1,5 @@
+import { Select } from '../../styles'
+
 type OnChange = {
   item: any
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
@@ -5,7 +7,7 @@ type OnChange = {
 
 const SelectCategory = ({ onChange, item }: OnChange) => {
   return (
-    <select onChange={onChange}>
+    <Select onChange={onChange}>
       <option value=''>Category</option>
       {item.map((cat: string, index: string) => {
         const category = cat === '' ? 'Category' : cat
@@ -15,7 +17,7 @@ const SelectCategory = ({ onChange, item }: OnChange) => {
           </option>
         )
       })}
-    </select>
+    </Select>
   )
 }
 

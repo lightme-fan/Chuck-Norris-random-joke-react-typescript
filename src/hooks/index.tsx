@@ -3,19 +3,21 @@ import React, { useState, useEffect, MouseEvent } from 'react'
 const useCustomHooks = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [joke, setJokes] = useState<any>(null)
-  const [allCategories, setAllCategories] = useState<string[]>([])
+  const [allCategories, setAllCategories] = useState<any>(null)
   const [firstName, setFirstName] = useState<string>('Chuck')
   const [lastName, setLastName] = useState<string>('Norris')
   const [inputValue, setInputValue] = useState<string>('')
   const [category, setCategory] = useState<string>('')
-  const [jokeText, setJokeText] = useState<string>('')
+  const [savedJokes, setSaveJokes] = useState<string[]>([])
+  const [isInputValid, setIsInputValid] = useState<boolean>(false)
 
+  // API
   const DEFAULT_API_URL = 'http://api.icndb.com/jokes/random'
   const CATEGORY_API = 'http://api.icndb.com/categories'
-
-  const API = `http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=`
+  const API = `http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
   const API_URL = `http://api.icndb.com/jokes/random?limitTo=[${category}]`
 
+  // Fetch API
   const fetchJokes = async (url: RequestInfo): Promise<any> => {
     try {
       const response = await fetch(url)
@@ -23,6 +25,7 @@ const useCustomHooks = () => {
       return data
     } catch (err) {
       console.log(err)
+      setLoading(true)
     }
   }
 
@@ -33,23 +36,18 @@ const useCustomHooks = () => {
     }
     async function jokeCategory(): Promise<any> {
       const newCat = await fetchJokes(CATEGORY_API)
-      // setAllCategories(newCat.value)
-
-      // console.log(newCat)
+      setAllCategories(newCat.value)
     }
     randomJokes()
     jokeCategory()
   }, [])
 
-  console.log(joke)
-
-  type HtmlEvent = React.ChangeEvent<HTMLSelectElement>
-
-  const selectOnChange = async (event: HtmlEvent): Promise<any> => {
+  // Handle select change
+  const selectOnChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): Promise<any> => {
     const catValue = event.target.value
     const categories = joke.value.categories
-    console.log(categories)
-
     const isCategory = categories.includes(catValue)
 
     if (isCategory === false) {
@@ -62,35 +60,39 @@ const useCustomHooks = () => {
     }
   }
 
+  // Handle input change
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value
+    setIsInputValid(true)
+    const input = event.target
+    const newValue = input.value
     setInputValue(newValue)
   }
 
+  // Handle submit
   const handleSubmitDrawJoke = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<any> => {
     e.preventDefault()
 
     if (inputValue === '') {
+      setFirstName('Chuck')
+      setLastName('Norris')
       const newJoke = await fetchJokes(DEFAULT_API_URL)
       setJokes(newJoke)
     } else {
       const inputValueToArray = inputValue.match(/\S+/g)
       const newJokerName: any = inputValueToArray
-
       setFirstName(newJokerName[0])
       setLastName(newJokerName[1])
       const newJoke = await fetchJokes(API)
       setJokes(newJoke)
-      // setInputValue('')
     }
   }
 
-  const handleSaveButton = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('Saved files')
-
-    console.log(event.target)
+  // Handle save button
+  const handleSaveButton = (event: React.ChangeEvent<HTMLButtonElement>) => {
+    const newJoke = event.target.value
+    setSaveJokes((joke: string[]) => [...joke, newJoke])
   }
 
   return [
@@ -98,6 +100,7 @@ const useCustomHooks = () => {
     allCategories,
     firstName,
     lastName,
+    isInputValid,
     inputValue,
     category,
     selectOnChange,

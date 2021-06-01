@@ -7,51 +7,50 @@ import SaveJokes from './components/SaveJokes'
 import SelectCategory from './components/SelectCategory'
 import useCustomHooks from './hooks'
 import chuckNorrisPhoto from './userPhotos/chuck-norris.png'
+import randomPhoto from './userPhotos/random-photo.png'
 
 import { Container, Select, Form } from './styles'
 
 const App: FC = () => {
   const [
     joke,
-    jokeText,
     allCategories,
     firstName,
     lastName,
+    isInputValid,
     inputValue,
+    category,
     selectOnChange,
     handleInputChange,
     handleSubmitDrawJoke,
     handleSaveButton,
   ] = useCustomHooks()
 
-  // console.log('Jokes', joke)
-  // console.log('Category', allCategories)
+  const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
+
+  const lengthOfInputValue = inputValue.split(' ').length
 
   return (
     <Container>
       <JokeDetails
-        imageSource={chuckNorrisPhoto}
-        jokeText={'joke.value.joke'}
+        imageSource={
+          firstName === 'Chuck' && lastName === 'Norris'
+            ? chuckNorrisPhoto
+            : randomPhoto
+        }
+        jokeText={joke.value.joke}
         alt={firstName}
       />
-      {/* <SelectCategory onChange={selectOnChange} item={allCategories} /> */}
-      <Select name='' id=''>
-        <option>Cat1</option>
-        <option>Cat2</option>
-      </Select>
+      <SelectCategory onChange={selectOnChange} item={allCategories} />
       <Form onSubmit={handleSubmitDrawJoke}>
         <InputName
           value={inputValue}
-          name={'inputValue'}
+          name='name'
           onChange={handleInputChange}
         />
-        <DrawJokeButton
-          joker={
-            inputValue === '' ? 'Chuck Norris' : `${firstName} ${lastName}`
-          }
-        />
+        <DrawJokeButton joker={jokerName} />
       </Form>
-      <SaveJokes value={'joke.value.joke'} onClick={handleSaveButton} />
+      <SaveJokes value={joke.value.joke} onClick={handleSaveButton} />
     </Container>
   )
 }

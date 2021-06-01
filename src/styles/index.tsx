@@ -12,10 +12,21 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  position: relative;
 `
 
 export const Image = styled.img`
   width: 100%;
+`
+export const Joke = styled.p`
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #34394f;
 `
 
 export const Select = styled.select`
@@ -36,13 +47,24 @@ export const Select = styled.select`
 `
 
 export const Input = styled.input`
+  border: none;
+  font-size: 16px;
+  color: #34394f;
+  line-height: 1.63;
+  letter-spacing: -0.52px;
+  position: relative;
   height: 58px;
   padding-left: 16px;
   position: relative;
   border: solid 2px #c4c4c4;
   background-color: #fff;
   border-radius: 7px;
-  font-size: 16px;
+`
+
+export const PlaceholderElement = styled.span`
+  position: absolute;
+  top: 7%;
+  left: 17px;
   color: #c4c4c4;
   line-height: 1.63;
   letter-spacing: -0.52px;
@@ -65,7 +87,7 @@ export const DrawButton = styled.button`
 export const SaveJoke = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: 146px 1fr;
+  grid-template-columns: 35% 1fr;
   gap: 8px;
 `
 

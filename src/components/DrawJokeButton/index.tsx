@@ -5,7 +5,7 @@ type JokerType = {
 }
 
 const DrawJokeButton = ({ joker }: JokerType) => {
-  return <DrawButton>Draw a {joker} joke</DrawButton>
+  return <DrawButton>Draw a random {joker} joke</DrawButton>
 }
 
 export default DrawJokeButton
