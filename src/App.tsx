@@ -29,6 +29,7 @@ const App: FC = () => {
     handleInputSaveOnchange,
   } = useCustomHooks()
 
+  // This is the joker name
   const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
   return (
     <Container>
