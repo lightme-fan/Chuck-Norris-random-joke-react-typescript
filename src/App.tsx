@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import './App.css'
 import DrawJokeButton from './components/DrawJokeButton'
 import InputName from './components/InputName'
@@ -10,10 +10,10 @@ import chuckNorrisPhoto from './userPhotos/chuck-norris.png'
 import randomPhoto from './userPhotos/random-photo.png'
 
 import { Container, Form } from './styles'
+import { Context } from './context/useContext'
 
 const App: FC = () => {
   const {
-    joke,
     number,
     numberOfJokes,
     allCategories,
@@ -29,11 +29,14 @@ const App: FC = () => {
     handleInputSaveOnchange,
   } = useCustomHooks()
 
+  const { joke } = useContext(Context)
+  console.log(joke)
+
   // This is the joker name
   const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
   return (
     <Container>
-      <JokeDetails
+      {/* <JokeDetails
         imageSource={
           firstName === 'Chuck' && lastName === 'Norris'
             ? chuckNorrisPhoto
@@ -63,7 +66,7 @@ const App: FC = () => {
         onClick={handleSaveButton}
         decrement={handleDecrementButton}
         increment={handleIncrementButton}
-      />
+      /> */}
     </Container>
   )
 }
