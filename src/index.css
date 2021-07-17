@@ -30,16 +30,25 @@ button {
   background-position: 97% 50%;
 }
 
-.onpe-men {
+.open-men {
   margin: 54px 0 0;
   position: relative;
-  height: 58px;
+  height: 74px;
   z-index: 1;
   border: 2px solid #c4c4c4;
   border-radius: 6px;
-  border-bottom-left-radius: none;
-  border-bottom-right-radius: none;
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   border-color: #34394f;
+  background-image: url('./icons/up-arrow-svgrepo-com.svg');
+  background-repeat: no-repeat;
+  background-position: 95% 32%;
+  background-size: 12px;
+}
+
+.open-men ~ input {
+  display: none;
 }
 
 .item {
@@ -71,9 +80,7 @@ button {
   color: #34394f;
   border: none;
   border-radius: 6px;
-  width: 96%;
-  margin-left: 8px;
-  margin-right: 8px;
+  width: 92%;
 }
 
 .open {
@@ -101,4 +108,9 @@ button {
 .save-on-click {
   background-color: #34394f;
   color: white;
+}
+
+.input-on-focus ~ span {
+  top: 5px;
+  font-size: 12px;
 }

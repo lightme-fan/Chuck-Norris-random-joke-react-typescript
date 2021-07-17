@@ -1,4 +1,5 @@
 import React, { Children, useState } from 'react'
+import styled from 'styled-components'
 
 type SelectType = {
   item: any
@@ -9,17 +10,26 @@ interface Props {
   children: JSX.Element[] | JSX.Element
 }
 
+const Button = styled.button`
+  width: 100%;
+  background-color: #ffffff;
+`
+
+const ItemWrapper = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+`
+
 const SelectContainer = ({ children }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [head, ...tail] = Children.toArray(children)
   return (
-    <div
-      className={isOpen ? 'onpe-men' : 'menu'}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}>
+    <Button
+      className={isOpen ? 'open-men' : 'menu'}
+      onClick={() => setIsOpen(!isOpen)}>
       {head}
       {isOpen && <div className='open'>{tail}</div>}
-    </div>
+    </Button>
   )
 }
 
@@ -37,9 +47,11 @@ const SelectCategory = ({ item, onClick }: SelectType) => {
       <span className='cat-span'>Select a category</span>
       {item.map((cat: string) => {
         return (
-          <Item onClick={onClick} key={cat} value={cat}>
-            {cat}
-          </Item>
+          <ItemWrapper key={cat}>
+            <Item onClick={onClick} value={cat}>
+              {cat}
+            </Item>
+          </ItemWrapper>
         )
       })}
     </SelectContainer>

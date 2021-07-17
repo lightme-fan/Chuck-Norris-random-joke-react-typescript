@@ -61,19 +61,22 @@ export const Input = styled.input`
   line-height: 1.63;
   letter-spacing: -0.52px;
   position: relative;
-  height: 58px;
+  width: 95%;
+  height: 30px;
   padding-left: 16px;
   position: relative;
   border: solid 2px #c4c4c4;
   background-color: #fff;
   border-radius: 7px;
+  padding-top: 24px;
 
   &:focus {
-    padding-top: 28px;
+    padding-top: 24px;
     height: 30px;
   }
 
-  &:focus ~ span {
+  &:focus ~ span,
+  &:active ~ span {
     top: 5px;
     font-size: 12px;
   }
@@ -109,7 +112,7 @@ export const SaveJoke = styled.section`
   gap: 8px;
 `
 
-export const Savebutton = styled.button`
+export const SaveButton = styled.button`
   height: 55px;
   font-size: 16px;
   background-color: #f5f6f8;
@@ -134,22 +137,25 @@ export const NumberOfJokes = styled.div`
   border-radius: 6px;
   text-align: center;
   padding: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   div {
     display: flex;
     justify-content: space-between;
-    gap: 5px;
-    width: 90px;
-    padding-left: 16px;
 
     input {
+      text-align: center;
       border: none;
       background-color: #f5f6f8;
       width: 100%;
       font-size: 16px;
+      width: 100%;
 
       &:focus,
       &:valid {
+        outline: none;
         border: none;
         border-color: #f5f6f8;
       }
@@ -158,10 +164,15 @@ export const NumberOfJokes = styled.div`
 `
 
 export const IconButton = styled.button`
-  width: 24px;
-  height: 24px;
   border: solid 2px #34394f;
   color: #34394f;
   border-radius: 50%;
-  object-fit: contain;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+
+  &:hover {
+    background-color: #34394f;
+    color: #fff;
+  }
 `

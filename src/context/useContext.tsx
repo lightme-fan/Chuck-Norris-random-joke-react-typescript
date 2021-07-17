@@ -1,32 +1,24 @@
 import React, { createContext, useEffect, useReducer, useState } from 'react'
-
-interface JokeType {
+interface ValueType {
+  id: string
+  joke: string
+  categories: string[]
+}
+interface InitialType {
   type: string
-  value: { id: string; joke: string; categories: string[] }
+  value: ValueType
 }
 
-interface initialType {
-  joke: JokeType
+const initialState: InitialType = {
+  type: '',
+  value: { id: '', joke: '', categories: [] },
 }
 
-const initialState: initialType = {
-  joke: { type: '', value: { id: '', joke: '', categories: [] } },
-}
-
-export const Context = createContext<{ joke: initialType }>({
-  joke: initialState,
-})
+export const Context = createContext<any>(null)
 
 export const ContextProvider: React.FC = ({ children }) => {
-  const fetchRandomJoke = async (url: RequestInfo): Promise<any> => {
-    const response = await fetch(`${url}`)
-    const data = await response.json()
-    setData(data)
-  }
-
-  useEffect(() => {
-    fetchRandomJoke('https://api.icndb.com/jokes/random')
-  }, [])
-
-  return <Context.Provider value={{ joke }}>{children}</Context.Provider>
+  const [state, setState] = useState(initialState)
+  return (
+    <Context.Provider value={{ state, setState }}>{children}</Context.Provider>
+  )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import useCustomHooks from '../../customHooks'
-import { SaveJoke, NumberOfJokes, Savebutton, IconButton } from '../../styles'
+import { SaveJoke, NumberOfJokes, SaveButton, IconButton } from '../../styles'
 
 type OnClickType = {
   numValue: number
@@ -32,15 +32,23 @@ const SaveJokes = ({
             name='numberOfJokes'
             onChange={saveOnChange}
           />
-          <IconButton onClick={increment}>+</IconButton>
+          <IconButton
+            style={{
+              padding: '0',
+              width: '29px',
+              borderRadius: '50%',
+            }}
+            onClick={increment}>
+            +
+          </IconButton>
         </div>
       </NumberOfJokes>
-      <Savebutton
+      <SaveButton
         value={value}
         onClick={onClick}
         className={isButonClicked ? 'save-on-click' : ''}>
         Save Jokes
-      </Savebutton>
+      </SaveButton>
       {numberOfJokes > 100 || numberOfJokes < 0 ? (
         <p>You can pick a number from 1 to 100.</p>
       ) : null}

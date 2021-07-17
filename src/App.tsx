@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import './App.css'
 import DrawJokeButton from './components/DrawJokeButton'
 import InputName from './components/InputName'
@@ -9,11 +9,13 @@ import useCustomHooks from './customHooks'
 import chuckNorrisPhoto from './userPhotos/chuck-norris.png'
 import randomPhoto from './userPhotos/random-photo.png'
 
-import { Container, Form } from './styles'
+import { Container, Form, PlaceholderElement } from './styles'
 import { Context } from './context/useContext'
+import { useFetchData } from './fetchData/useFetchData'
 
 const App: FC = () => {
   const {
+    joke,
     number,
     numberOfJokes,
     allCategories,
@@ -29,14 +31,11 @@ const App: FC = () => {
     handleInputSaveOnchange,
   } = useCustomHooks()
 
-  const { joke } = useContext(Context)
-  console.log(joke)
-
   // This is the joker name
   const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
   return (
     <Container>
-      {/* <JokeDetails
+      <JokeDetails
         imageSource={
           firstName === 'Chuck' && lastName === 'Norris'
             ? chuckNorrisPhoto
@@ -47,12 +46,22 @@ const App: FC = () => {
       />
       <SelectCategory item={allCategories} onClick={handleSelect} />
       <Form onSubmit={handleSubmitDrawJoke}>
-        <InputName
-          value={inputValue}
-          name='input'
-          doesInputHaveValue={inputValue !== '' ? true : false}
-          onChange={handleInputChange}
-        />
+        <InputName value={inputValue} name='input' onChange={handleInputChange}>
+          {inputValue.length === 0 ? (
+            <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
+          ) : (
+            <span
+              style={{
+                position: 'absolute',
+                top: '5px',
+                left: '16px',
+                fontSize: '12px',
+                color: '#c4c4c4',
+              }}>
+              Impersonate Chuck Norris
+            </span>
+          )}
+        </InputName>
         <DrawJokeButton
           joker={jokerName}
           id='drawJokeButton'
@@ -66,7 +75,7 @@ const App: FC = () => {
         onClick={handleSaveButton}
         decrement={handleDecrementButton}
         increment={handleIncrementButton}
-      /> */}
+      />
     </Container>
   )
 }

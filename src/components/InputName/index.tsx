@@ -1,24 +1,39 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
+import styled from 'styled-components'
 import { Input, PlaceholderElement } from '../../styles'
 
 type InputType = {
   value: string
   name: string
-  doesInputHaveValue: boolean
+  placeholder?: string
+  style?: any
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  children?: any
 }
 
+const InputWrapper = styled.div`
+  width: 100%;
+`
 const InputName = ({
   value,
   name,
-  doesInputHaveValue,
+  placeholder,
+  style,
   onChange,
+  children,
 }: InputType) => {
+  const [isInputOnChange, setIsInputOnChange] = useState<boolean>(false)
   return (
-    <Fragment>
-      <Input value={value} name={name} onChange={onChange} />
-      <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
-    </Fragment>
+    <div>
+      <Input
+        style={style}
+        value={value}
+        name={name}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+      {children}
+    </div>
   )
 }
 
