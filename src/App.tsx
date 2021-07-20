@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react'
+import { FC, useContext } from 'react'
 import './App.css'
 import DrawJokeButton from './components/DrawJokeButton'
 import InputName from './components/InputName'
@@ -11,10 +11,13 @@ import randomPhoto from './userPhotos/random-photo.png'
 
 import { Container, Form, PlaceholderElement } from './styles'
 import { Context } from './context/useContext'
-import { useFetchData } from './fetchData/useFetchData'
 
 const App: FC = () => {
+  const { state } = useContext(Context)
+  console.log(state)
+
   const {
+    loading,
     joke,
     number,
     numberOfJokes,
@@ -35,15 +38,19 @@ const App: FC = () => {
   const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
   return (
     <Container>
-      <JokeDetails
-        imageSource={
-          firstName === 'Chuck' && lastName === 'Norris'
-            ? chuckNorrisPhoto
-            : randomPhoto
-        }
-        jokeText={joke.joke}
-        alt={firstName}
-      />
+      {loading === false ? (
+        <JokeDetails
+          imageSource={
+            firstName === 'Chuck' && lastName === 'Norris'
+              ? chuckNorrisPhoto
+              : randomPhoto
+          }
+          jokeText={joke.joke}
+          alt={firstName}
+        />
+      ) : (
+        <span>Loading...</span>
+      )}
       <SelectCategory item={allCategories} onClick={handleSelect} />
       <Form onSubmit={handleSubmitDrawJoke}>
         <InputName value={inputValue} name='input' onChange={handleInputChange}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const useCustomHooks = () => {
+  const [loading, setLoading] = useState<boolean>(true)
   const [joke, setJokes] = useState<any>({})
   const [allCategories, setAllCategories] = useState<string[]>([])
   const [firstName, setFirstName] = useState<string>('Chuck')
@@ -10,15 +11,15 @@ const useCustomHooks = () => {
   const [category, setCategory] = useState<string>('')
   const [savedJokes, setSaveJokes] = useState<string[]>([])
   const [isInputValid, setIsInputValid] = useState<boolean>(false)
-  const [newMultipleJokes, setnewMultipleJokes] = useState<any>(null)
+  const [newMultipleJokes, setNewMultipleJokes] = useState<any>(null)
   const [number, setNumber] = useState<any>(0)
   const [numberOfJokes, setNumberOfJokes] = useState<number>(0)
-  const [isButonClicked, setIsButonClicked] = useState<boolean>(false)
+  const [isButtonClicked, setIsButtonClicked] = useState<boolean>(false)
 
   // API
   const CATEGORY_API = 'https://api.icndb.com/categories'
   const RANDOM_JOKE_URL = `https://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`
-  const SPECIFIC_CATEGORY_API = `https://api.icndb.com/jokes/random?limitTo=[${category}]`
+  const SPECIFIC_CATEGORY_API = `https://api.icndb.com/jokes/random?limitTo=`
   const MULTIPLE_JOKE_API = `https://api.icndb.com/jokes/random/${numberOfJokes}`
 
   // Fetch API
@@ -36,16 +37,24 @@ const useCustomHooks = () => {
     event: React.ChangeEvent<HTMLButtonElement>
   ): Promise<any> => {
     const catValue = event.target.value
-    setCategory(catValue)
-    const newJoke = await fetchJokes(`${SPECIFIC_CATEGORY_API}`)
-    setJokes(newJoke.value)
+    if (catValue === 'explicit') {
+      setCategory('')
+    } else {
+      setCategory(catValue)
+    }
+    const prevJoke = await fetchJokes(RANDOM_JOKE_URL)
+    const newJoke = await fetchJokes(`${SPECIFIC_CATEGORY_API}[${category}]`)
+    const joke =
+      newJoke.value === 'No such categories='
+        ? setJokes(prevJoke.value)
+        : setJokes(newJoke.value)
+    return joke
   }
 
   // Handle input change
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsInputValid(true)
-    const input = event.target
-    const newValue = input.value
+    const newValue = event.target.value
     setInputValue(newValue)
 
     if (inputValue !== '') {
@@ -73,20 +82,25 @@ const useCustomHooks = () => {
     // Set Name
     setFirstName(convertedValueToArray[0])
     setLastName(buttonValue.length === 1 ? '' : convertedValueToArray[1])
+    console.log(lastName)
+    console.log(firstName)
 
     // Fetch API
     const newJoke = await fetchJokes(RANDOM_JOKE_URL)
+    if (newJoke.value.joke.include('Chuck Norris')) {
+      setJokes(newJoke.value)
+    }
     setJokes(newJoke.value)
   }
 
   const handleDecrementButton = () => {
-    setIsButonClicked(true)
+    setIsButtonClicked(true)
     setNumber((num: number) => (num > 0 ? number - 1 : 0))
   }
 
   const handleIncrementButton = () => {
     setNumber((prev: number) => prev + 1)
-    setIsButonClicked(true)
+    setIsButtonClicked(true)
   }
 
   const handleInputSaveOnchange = (
@@ -112,6 +126,7 @@ const useCustomHooks = () => {
     async function randomJokes(): Promise<any> {
       const newJoke = await fetchJokes(RANDOM_JOKE_URL)
       setJokes(newJoke.value)
+      setLoading(false)
     }
 
     async function jokeCategory(): Promise<any> {
@@ -123,7 +138,7 @@ const useCustomHooks = () => {
       if (numberOfJokes > 0 || numberOfJokes <= 100) {
         setNumberOfJokes(number)
         const multipleJokes = await fetchJokes(MULTIPLE_JOKE_API)
-        setnewMultipleJokes(multipleJokes.value)
+        setNewMultipleJokes(multipleJokes.value)
       }
     }
     randomJokes()
@@ -134,11 +149,12 @@ const useCustomHooks = () => {
   }, [numberOfJokes])
 
   return {
+    loading,
     joke,
     number,
     numberOfJokes,
     allCategories,
-    isButonClicked,
+    isButtonClicked,
     firstName,
     lastName,
     isInputValid,

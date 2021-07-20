@@ -10,9 +10,18 @@ interface Props {
   children: JSX.Element[] | JSX.Element
 }
 
-const Button = styled.button`
-  width: 100%;
+const Button = styled.div`
+  width: 99%;
   background-color: #ffffff;
+
+  &:hover {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 564px) {
+    width: 102%;
+  }
 `
 
 const ItemWrapper = styled.div`
