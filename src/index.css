@@ -30,10 +30,10 @@ button {
   background-position: 97% 50%;
 }
 
-.open-men {
+.open-menu {
   margin: 54px 0 0;
   position: relative;
-  height: 74px;
+  height: 76px;
   z-index: 1;
   border: 2px solid #c4c4c4;
   border-radius: 6px;
@@ -47,8 +47,8 @@ button {
   background-size: 12px;
 }
 
-.open-men ~ input {
-  display: none;
+.open-menu ~ form div {
+  visibility: hidden;
 }
 
 .item {
@@ -75,12 +75,16 @@ button {
   left: 16px;
 }
 
+.open-menu ~ .open-menu .cat-span {
+  top: 18%;
+  left: 32px;
+}
+
 .item:hover {
   background-color: #e9e9e9;
   color: #34394f;
   border: none;
   border-radius: 6px;
-  width: 92%;
 }
 
 .open {

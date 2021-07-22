@@ -9,6 +9,7 @@ type OnClickType = {
   saveOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   decrement: (event: React.MouseEvent<HTMLButtonElement>) => void
   increment: (event: React.MouseEvent<HTMLButtonElement>) => void
+  style?: any
 }
 
 const SaveJokes = ({
@@ -18,6 +19,7 @@ const SaveJokes = ({
   saveOnChange,
   value,
   numValue,
+  style,
 }: OnClickType) => {
   const { numberOfJokes, isButtonClicked } = useCustomHooks()
 
@@ -32,18 +34,11 @@ const SaveJokes = ({
             name='numberOfJokes'
             onChange={saveOnChange}
           />
-          <IconButton
-            style={{
-              padding: '0',
-              width: '29px',
-              borderRadius: '50%',
-            }}
-            onClick={increment}>
-            +
-          </IconButton>
+          <IconButton onClick={increment}>+</IconButton>
         </div>
       </NumberOfJokes>
       <SaveButton
+        style={style}
         value={value}
         onClick={onClick}
         className={isButtonClicked ? 'save-on-click' : ''}>

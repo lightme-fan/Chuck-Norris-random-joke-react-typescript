@@ -66,7 +66,7 @@ export const Input = styled.input`
   padding-left: 16px;
   position: relative;
   border: solid 2px #c4c4c4;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 7px;
   padding-top: 24px;
 
@@ -149,9 +149,8 @@ export const NumberOfJokes = styled.div`
       text-align: center;
       border: none;
       background-color: #f5f6f8;
-      width: 100%;
       font-size: 16px;
-      width: 100%;
+      width: 50%;
 
       &:focus,
       &:valid {
@@ -167,12 +166,16 @@ export const IconButton = styled.button`
   border: solid 2px #34394f;
   color: #34394f;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
   text-align: center;
 
   &:hover {
     background-color: #34394f;
     color: #fff;
+  }
+
+  &:nth-of-type(2) {
+    padding: 0;
+    width: 20px;
+    border-radius: 50%;
   }
 `

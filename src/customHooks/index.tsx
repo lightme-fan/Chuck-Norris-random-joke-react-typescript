@@ -107,6 +107,7 @@ const useCustomHooks = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newNumber = event.target.value
+    console.log(newNumber)
   }
 
   // Handle save button

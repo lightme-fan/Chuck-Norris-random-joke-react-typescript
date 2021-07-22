@@ -53,7 +53,11 @@ const App: FC = () => {
       )}
       <SelectCategory item={allCategories} onClick={handleSelect} />
       <Form onSubmit={handleSubmitDrawJoke}>
-        <InputName value={inputValue} name='input' onChange={handleInputChange}>
+        <InputName
+          style={{ backgroundColor: inputValue && '#ffffff' }}
+          value={inputValue}
+          name='input'
+          onChange={handleInputChange}>
           {inputValue.length === 0 ? (
             <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
           ) : (
@@ -76,6 +80,9 @@ const App: FC = () => {
         />
       </Form>
       <SaveJokes
+        // style={
+        //   numberOfJokes > 0 && { backgroundColor: '#34394f', color: '#fff' }
+        // }
         value={joke.joke}
         numValue={number}
         saveOnChange={handleInputSaveOnchange}

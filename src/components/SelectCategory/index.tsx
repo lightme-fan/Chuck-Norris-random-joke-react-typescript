@@ -25,8 +25,19 @@ const Button = styled.div`
 `
 
 const ItemWrapper = styled.div`
-  width: 100%;
+  width: 92%;
   background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin: auto;
+
+  &:hover {
+    background-color: #e9e9e9;
+    color: #34394f;
+    border: none;
+    border-radius: 6px;
+  }
 `
 
 const SelectContainer = ({ children }: Props) => {
@@ -34,7 +45,7 @@ const SelectContainer = ({ children }: Props) => {
   const [head, ...tail] = Children.toArray(children)
   return (
     <Button
-      className={isOpen ? 'open-men' : 'menu'}
+      className={isOpen ? 'open-menu' : 'menu'}
       onClick={() => setIsOpen(!isOpen)}>
       {head}
       {isOpen && <div className='open'>{tail}</div>}
