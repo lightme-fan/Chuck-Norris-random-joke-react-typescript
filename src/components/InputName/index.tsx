@@ -1,19 +1,6 @@
-import { useState } from 'react'
-import styled from 'styled-components'
 import { Input } from '../../styles'
+import { InputType } from '../../types'
 
-type InputType = {
-  value: string
-  name: string
-  placeholder?: string
-  style?: any
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  children?: any
-}
-
-const InputWrapper = styled.div`
-  width: 100%;
-`
 const InputName = ({
   value,
   name,
@@ -22,7 +9,6 @@ const InputName = ({
   onChange,
   children,
 }: InputType) => {
-  const [isInputOnChange, setIsInputOnChange] = useState<boolean>(false)
   return (
     <div>
       <Input

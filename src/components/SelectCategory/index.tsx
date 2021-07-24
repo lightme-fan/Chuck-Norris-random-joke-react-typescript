@@ -1,55 +1,18 @@
-import React, { Children, useState } from 'react'
-import styled from 'styled-components'
+import { Children, useState } from 'react'
+import { ItemStyle, ItemWrapper } from '../../styles'
+import { Props, SelectType } from '../../types'
 
-type SelectType = {
-  item: any
-  onClick: (event: React.ChangeEvent<HTMLButtonElement>) => void
-}
-
-interface Props {
-  children: JSX.Element[] | JSX.Element
-}
-
-const Button = styled.div`
-  width: 99%;
-  background-color: #ffffff;
-
-  &:hover {
-    display: flex;
-    justify-content: center;
-  }
-
-  @media (max-width: 564px) {
-    width: 102%;
-  }
-`
-
-const ItemWrapper = styled.div`
-  width: 92%;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  background-color: white;
-  margin: auto;
-
-  &:hover {
-    background-color: #e9e9e9;
-    color: #34394f;
-    border: none;
-    border-radius: 6px;
-  }
-`
-
-const SelectContainer = ({ children }: Props) => {
+const SelectContainer = ({ children, style }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [head, ...tail] = Children.toArray(children)
   return (
-    <Button
+    <ItemStyle
+      style={style}
       className={isOpen ? 'open-menu' : 'menu'}
       onClick={() => setIsOpen(!isOpen)}>
       {head}
       {isOpen && <div className='open'>{tail}</div>}
-    </Button>
+    </ItemStyle>
   )
 }
 
@@ -61,14 +24,14 @@ const Item = ({ children, value, onClick }: any) => {
   )
 }
 
-const SelectCategory = ({ item, onClick }: SelectType) => {
+const SelectCategory = ({ item, categoryName, style, onClick }: SelectType) => {
   return (
-    <SelectContainer>
-      <span className='cat-span'>Select a category</span>
+    <SelectContainer style={style}>
+      <span className='cat-span'>{categoryName}</span>
       {item.map((cat: string) => {
         return (
           <ItemWrapper key={cat}>
-            <Item onClick={onClick} value={cat}>
+            <Item onClick={onClick} value={cat.toLocaleLowerCase()}>
               {cat}
             </Item>
           </ItemWrapper>

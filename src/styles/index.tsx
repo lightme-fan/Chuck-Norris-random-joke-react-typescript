@@ -108,8 +108,21 @@ export const DrawButton = styled.button`
 export const SaveJoke = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: 35% 1fr;
+  grid-template-columns: 30% 1fr;
   gap: 8px;
+
+  .disabled {
+    background: #f39a9a;
+
+    button {
+      border: 2px solid #34394f;
+    }
+
+    input,
+    button {
+      background: #f39a9a;
+    }
+  }
 `
 
 export const SaveButton = styled.button`
@@ -151,6 +164,9 @@ export const NumberOfJokes = styled.div`
       background-color: #f5f6f8;
       font-size: 16px;
       width: 50%;
+      font-size: 16px;
+      line-height: 0.63;
+      letter-spacing: -0.52px;
 
       &:focus,
       &:valid {
@@ -163,19 +179,69 @@ export const NumberOfJokes = styled.div`
 `
 
 export const IconButton = styled.button`
-  border: solid 2px #34394f;
+  border: none;
+  background-color: #c4c4c4;
   color: #34394f;
   border-radius: 50%;
   text-align: center;
+  width: 24px;
+  height: 24px;
 
   &:hover {
     background-color: #34394f;
     color: #fff;
+    span {
+      color: #fff;
+    }
   }
 
   &:nth-of-type(2) {
     padding: 0;
-    width: 20px;
     border-radius: 50%;
+  }
+
+  span {
+    width: 13.9px;
+    height: 3.9px;
+    color: #34394f;
+  }
+`
+
+export const ErrorMessage = styled.div`
+  font-size: 14px;
+  color: #f39a9a;
+  opacity: 0.6;
+  line-height: 1.63;
+  letter-spacing: -0.52px;
+  text-align: left;
+`
+
+export const ItemStyle = styled.div`
+  width: 99%;
+  background-color: #ffffff;
+
+  &:hover {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 564px) {
+    width: 102%;
+  }
+`
+
+export const ItemWrapper = styled.div`
+  width: 92%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin: auto;
+
+  &:hover {
+    background-color: #e9e9e9;
+    color: #34394f;
+    border: none;
+    border-radius: 6px;
   }
 `

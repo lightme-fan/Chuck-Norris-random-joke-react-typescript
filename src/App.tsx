@@ -5,60 +5,55 @@ import InputName from './components/InputName'
 import JokeDetails from './components/JokeDetails'
 import SaveJokes from './components/SaveJokes'
 import SelectCategory from './components/SelectCategory'
-import useCustomHooks from './customHooks'
 import chuckNorrisPhoto from './userPhotos/chuck-norris.png'
 import randomPhoto from './userPhotos/random-photo.png'
-
 import { Container, Form, PlaceholderElement } from './styles'
 import { Context } from './context/useContext'
 
 const App: FC = () => {
-  const { state } = useContext(Context)
-  console.log(state)
-
   const {
-    loading,
-    joke,
-    number,
-    numberOfJokes,
-    allCategories,
-    firstName,
-    lastName,
-    inputValue,
-    handleSelect,
-    handleInputChange,
-    handleSubmitDrawJoke,
+    state,
+    handleSelectChange,
+    handleInput,
+    handleDrawButton,
+    handleInputNumberOfJoke,
+    incrementNumber,
+    decrementNumber,
     handleSaveButton,
-    handleDecrementButton,
-    handleIncrementButton,
-    handleInputSaveOnchange,
-  } = useCustomHooks()
+  } = useContext(Context)
 
-  // This is the joker name
-  const jokerName = inputValue === '' ? 'Chuck Norris' : `${inputValue}`
+  const jokerName =
+    state.inputValue.length === 0 ? 'Chuck Norris' : state.inputValue
+
   return (
     <Container>
-      {loading === false ? (
+      {state.loading === false ? (
         <JokeDetails
           imageSource={
-            firstName === 'Chuck' && lastName === 'Norris'
+            state.firstName === 'Chuck' || state.lastName === 'Norris'
               ? chuckNorrisPhoto
               : randomPhoto
           }
-          jokeText={joke.joke}
-          alt={firstName}
+          jokeText={state.joke}
+          alt={`${state.firstName} ${state.lastName}`}
         />
       ) : (
         <span>Loading...</span>
       )}
-      <SelectCategory item={allCategories} onClick={handleSelect} />
-      <Form onSubmit={handleSubmitDrawJoke}>
+      <SelectCategory
+        item={state.categories}
+        categoryName={
+          state.category.length === 0 ? 'Select a category' : state.category
+        }
+        onClick={handleSelectChange}
+      />
+      <Form onSubmit={handleDrawButton}>
         <InputName
-          style={{ backgroundColor: inputValue && '#ffffff' }}
-          value={inputValue}
+          style={{ backgroundColor: state.inputValue && '#ffffff' }}
+          value={state.inputValue}
           name='input'
-          onChange={handleInputChange}>
-          {inputValue.length === 0 ? (
+          onChange={handleInput}>
+          {state.inputValue.length === 0 ? (
             <PlaceholderElement>Impersonate Chuck Norris</PlaceholderElement>
           ) : (
             <span
@@ -80,15 +75,25 @@ const App: FC = () => {
         />
       </Form>
       <SaveJokes
-        // style={
-        //   numberOfJokes > 0 && { backgroundColor: '#34394f', color: '#fff' }
-        // }
-        value={joke.joke}
-        numValue={number}
-        saveOnChange={handleInputSaveOnchange}
+        value={state.joke}
+        style={
+          state.numberOfJokes <= 0 || state.numberOfJokes >= 101
+            ? {
+                backgroundColor: '#f5f6f8',
+                color: '#34394f',
+                cursor: 'default',
+              }
+            : {
+                backgroundColor: '#34394f',
+                color: '#fff',
+                cursor: 'pointer',
+              }
+        }
+        numValue={state.numberOfJokes}
+        saveOnChange={handleInputNumberOfJoke}
         onClick={handleSaveButton}
-        decrement={handleDecrementButton}
-        increment={handleIncrementButton}
+        decrement={decrementNumber}
+        increment={incrementNumber}
       />
     </Container>
   )

@@ -1,10 +1,5 @@
 import { DrawButton } from '../../styles'
-
-type JokerType = {
-  id: string
-  joker: string
-  value: string
-}
+import { JokerType } from '../../types'
 
 const DrawJokeButton = ({ id, joker, value }: JokerType) => {
   return (

@@ -1,17 +1,11 @@
-import React from 'react'
 import { Image, Joke } from '../../styles'
-
-type JokeContent = {
-  imageSource: any
-  jokeText: string | undefined
-  alt: string
-}
+import { JokeContentType } from '../../types'
 
 const JokeDetails = ({
   imageSource,
   jokeText,
   alt,
-}: JokeContent): JSX.Element => {
+}: JokeContentType): JSX.Element => {
   return (
     <div>
       <Image src={imageSource} alt={alt} />
