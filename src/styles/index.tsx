@@ -195,15 +195,24 @@ export const IconButton = styled.button`
     }
   }
 
+  span {
+    color: #34394f;
+  }
+
   &:nth-of-type(2) {
     padding: 0;
     border-radius: 50%;
+    span {
+      font-size: 22px;
+      line-height: 24px;
+    }
   }
 
-  span {
-    width: 13.9px;
-    height: 3.9px;
-    color: #34394f;
+  &:nth-of-type(1) {
+    span {
+      line-height: 18px;
+      font-size: 32px;
+    }
   }
 `
 
