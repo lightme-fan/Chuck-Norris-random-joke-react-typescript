@@ -95,7 +95,9 @@ export const ContextProvider: React.FC = ({ children }) => {
     )
     dispatch({ type: 'SAVE_JOKES', payload: response.value })
     alert(
-      `Congratulation, you have ${response.value.length} jokes saved on local storage!`
+      `Congratulation, you have ${response.value.length} joke${
+        response.value.length === 1 ? '' : 's'
+      } saved on local storage!`
     )
   }
 
