@@ -91,7 +91,7 @@ export const ContextProvider: React.FC = ({ children }) => {
 
   const handleSaveButton = async (): Promise<any> => {
     const response = await fetchJokes(
-      `http://api.icndb.com/jokes/random/${state.numberOfJokes}`
+      `https://api.icndb.com/jokes/random/${state.numberOfJokes}`
     )
     dispatch({ type: 'SAVE_JOKES', payload: response.value })
     alert(
