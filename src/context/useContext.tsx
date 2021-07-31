@@ -22,7 +22,7 @@ export const ContextProvider: React.FC = ({ children }) => {
 
   const fetchRandomJoke = async (): Promise<any> => {
     const response = await fetchJokes(
-      'http://api.icndb.com/jokes/random?exclude=[explicit]'
+      'https://api.icndb.com/jokes/random?exclude=[explicit]'
     )
     dispatch({ type: 'GET_JOKE', payload: response.value.joke })
   }
