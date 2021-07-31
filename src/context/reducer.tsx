@@ -44,6 +44,12 @@ export const reducer = (state = initialState, action: ActionType) => {
       }
     }
 
+    case 'SAVE_JOKES':
+      return {
+        ...state,
+        savedJokes: action.payload,
+      }
+
     default:
       return state
   }

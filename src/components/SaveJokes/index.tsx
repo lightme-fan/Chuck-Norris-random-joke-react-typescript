@@ -17,10 +17,8 @@ const SaveJokes = ({
   value,
   numValue,
   style,
-  isDisabled,
 }: SaveButtonType) => {
   const { state } = useContext(Context)
-  console.log(state)
 
   return (
     <Fragment>

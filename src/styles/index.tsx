@@ -180,12 +180,13 @@ export const NumberOfJokes = styled.div`
 
 export const IconButton = styled.button`
   border: none;
-  background-color: #c4c4c4;
   color: #34394f;
+  border: 1px solid #34394f;
   border-radius: 50%;
   text-align: center;
   width: 24px;
   height: 24px;
+  padding: 0;
 
   &:hover {
     background-color: #34394f;
@@ -200,17 +201,18 @@ export const IconButton = styled.button`
   }
 
   &:nth-of-type(2) {
-    padding: 0;
     border-radius: 50%;
+
     span {
       font-size: 22px;
-      line-height: 24px;
+      line-height: 20px;
     }
   }
 
   &:nth-of-type(1) {
+    padding: 0;
     span {
-      line-height: 18px;
+      line-height: 16px;
       font-size: 32px;
     }
   }

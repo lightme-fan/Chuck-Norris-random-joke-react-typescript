@@ -12,6 +12,7 @@ export const initialState: InitialStateType = {
   inputValue: '',
   numberOfJokes: 0,
   category: '',
+  savedJokes: [],
 }
 
 export const Context = createContext<any | null>(null)
@@ -71,22 +72,31 @@ export const ContextProvider: React.FC = ({ children }) => {
   const handleInputNumberOfJoke = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    dispatch({ type: 'NUMBER_OF_JOKE', payload: event.target.value })
+    dispatch({
+      type: 'NUMBER_OF_JOKE',
+      payload: event.target.value,
+    })
   }
 
-  const incrementNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const incrementNumber = () => {
     dispatch({ type: 'INCREMENT_NUMBER', payload: state.numberOfJokes })
   }
 
-  const decrementNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const decrementNumber = () => {
     dispatch({
       type: 'DECREMENT_NUMBER',
       payload: state.numberOfJokes,
     })
   }
 
-  const handleSaveButton = () => {
-    console.log('handling joke')
+  const handleSaveButton = async (): Promise<any> => {
+    const response = await fetchJokes(
+      `http://api.icndb.com/jokes/random/${state.numberOfJokes}`
+    )
+    dispatch({ type: 'SAVE_JOKES', payload: response.value })
+    alert(
+      `Congratulation, you have ${response.value.length} jokes saved on local storage!`
+    )
   }
 
   return (

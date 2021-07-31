@@ -7,11 +7,12 @@ export interface InitialStateType {
   inputValue: string
   numberOfJokes: any
   category: string
+  savedJokes: any[]
 }
 
 export interface ActionType {
   type: string
-  payload: string
+  payload: string | any
 }
 
 export type InputType = {
