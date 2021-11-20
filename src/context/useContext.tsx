@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
 import { InitialStateType } from '../types'
 import { capitalizeFirstLetter, fetchJokes } from '../utils/index'
 import { reducer } from './reducer'
@@ -19,6 +19,7 @@ export const Context = createContext<any | null>(null)
 
 export const ContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const [downloadLink, setDownloadLink] = useState<string>('')
 
   const fetchRandomJoke = async (): Promise<any> => {
     const response = await fetchJokes(
@@ -26,10 +27,6 @@ export const ContextProvider: React.FC = ({ children }) => {
     )
     dispatch({ type: 'GET_JOKE', payload: response.value.joke })
   }
-
-  useEffect(() => {
-    fetchRandomJoke()
-  }, [])
 
   const handleSelectChange = async (
     event: React.ChangeEvent<HTMLButtonElement>
@@ -93,18 +90,28 @@ export const ContextProvider: React.FC = ({ children }) => {
     const response = await fetchJokes(
       `https://api.icndb.com/jokes/random/${state.numberOfJokes}`
     )
-    dispatch({ type: 'SAVE_JOKES', payload: response.value })
-    alert(
-      `Congratulation, you have ${response.value.length} joke${
-        response.value.length === 1 ? '' : 's'
-      } saved on local storage!`
-    )
+    const saveJoke = response.value.map((joke: any) => joke.joke)
+    
+    dispatch({ type: 'SAVE_JOKES', payload: saveJoke || state.joke })
   }
+
+  const makeTextFile = () => {
+    const data = new Blob([state.savedJokes.join('\n')], { type: 'text/plain' })
+    if (downloadLink !== '') window.URL.revokeObjectURL(downloadLink)
+    setDownloadLink(window.URL.createObjectURL(data))
+  }
+
+  useEffect(() => {
+    fetchRandomJoke() 
+    makeTextFile()
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <Context.Provider
       value={{
         state,
+        downloadLink,
         handleSelectChange,
         handleInput,
         handleDrawButton,

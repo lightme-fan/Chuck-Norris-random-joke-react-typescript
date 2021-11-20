@@ -18,8 +18,8 @@ const SaveJokes = ({
   numValue,
   style,
 }: SaveButtonType) => {
-  const { state } = useContext(Context)
-
+  const { state, downloadLink } = useContext(Context)
+  
   return (
     <Fragment>
       <SaveJoke>
@@ -44,8 +44,11 @@ const SaveJokes = ({
           </div>
         </NumberOfJokes>
         <SaveButton style={style} value={value} onClick={onClick}>
-          Save Jokes
-        </SaveButton>
+          {state.numberOfJokes === 0 
+            ? 'Save joke'
+            : <a style={{color: `${state.numberOfJokes === 0 ? '#000000' : "#fff"}`, textDecoration: 'none'}} download='list.txt' href={downloadLink}>Save Joke</a>
+          }
+          </SaveButton>
       </SaveJoke>
       <ErrorMessage>
         {state.numberOfJokes >= 101 || state.numberOfJokes <= -1
