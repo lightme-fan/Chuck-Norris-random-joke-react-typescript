@@ -5,6 +5,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Demo
 [https://chuck-norris-random-joke-fanilo.netlify.app](https://chuck-norris-random-joke-fanilo.netlify.app)
 
+## Screenshot
+![randomJoke](https://user-images.githubusercontent.com/60210180/143202234-ce32e207-7705-4004-bbc6-41cc6761ebec.png)
+
+
 ## Build with
 - React
 - Typescript
