@@ -1,20 +1,25 @@
-# Getting Started with Create React App
+# Chuck Norris Random Joke
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Demo
-[https://chuck-norris-random-joke-fanilo.netlify.app](https://chuck-norris-random-joke-fanilo.netlify.app)
+### Demo: [https://chuck-norris-random-joke-fanilo.netlify.app](https://chuck-norris-random-joke-fanilo.netlify.app)
+### Github: [https://github.com/lightme-fan/Chuck-Norris-random-joke-react-typescript](https://github.com/lightme-fan/Chuck-Norris-random-joke-react-typescript)
 
 ## Screenshot
 ![randomJoke](https://user-images.githubusercontent.com/60210180/143202234-ce32e207-7705-4004-bbc6-41cc6761ebec.png)
 
-
 ## Build with
 - React
 - Typescript
+- Context API
+- Styled components
+
+
+## Features
+- A page that show Chuck Norris's random joke with his picture.
+- Filtering a joke category 
+- Getting other jokes from other jokers
+- Saving one to 100 jokes
 
 ## Available Scripts
-
 In the project directory, you can run:
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with either [npm](http://npmjs.com) or [yarn](https://yarnpkg.com/)) installed on your computer. From your command line:
