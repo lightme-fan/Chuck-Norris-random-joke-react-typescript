@@ -81,7 +81,7 @@ const App: FC = () => {
             ? {
                 backgroundColor: '#f5f6f8',
                 color: '#34394f',
-                cursor: 'default',
+                cursor: 'not-allowed',
               }
             : {
                 backgroundColor: '#34394f',

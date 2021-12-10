@@ -3,8 +3,9 @@ import styled from 'styled-components'
 export const Container = styled.div`
   max-width: 439px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
-  padding: 48px 58px 72px 58px;
-  margin: 98px auto 98px auto;
+  padding: 28px 58px 15px 58px;
+  margin: auto;
+  margin-top: 16px;
   background-color: #fff;
   border-radius: 8px;
 `
@@ -101,7 +102,7 @@ export const DrawButton = styled.button`
   background-color: #34394f;
   line-height: 1.63;
   letter-spacing: -0.52px;
-  margin: 32px 0 52px;
+  margin: 11px 0 24px;
   border: none;
 `
 
