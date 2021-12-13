@@ -1,7 +1,7 @@
 # Chuck Norris Random Joke
 
-### Demo: [https://chuck-norris-random-joke-fanilo.netlify.app](https://chuck-norris-random-joke-fanilo.netlify.app)
-### Github: [https://github.com/lightme-fan/Chuck-Norris-random-joke-react-typescript](https://github.com/lightme-fan/Chuck-Norris-random-joke-react-typescript)
+- Demo: [https://chuck-norris-random-joke-fanilo.netlify.app](https://chuck-norris-random-joke-fanilo.netlify.app)
+- Github: [https://github.com/lightme-fan/Chuck-Norris-random-joke-react-typescript](https://github.com/lightme-fan/Chuck-Norris-random-joke-react-typescript)
 
 ## Screenshot
 ![randomJoke](https://user-images.githubusercontent.com/60210180/143202234-ce32e207-7705-4004-bbc6-41cc6761ebec.png)
@@ -14,10 +14,10 @@
 
 
 ## Features
-- A page that show Chuck Norris's random joke with his picture.
-- Filtering a joke category 
-- Getting other jokes from other jokers
-- Saving one to 100 jokes
+- A page that shows a Chuck Norris's random joke with his picture.
+- Filtering a joke category.
+- Getting other andom jokes from other jokers.
+- Saving one to 100 jokes.
 
 ## Available Scripts
 In the project directory, you can run:
